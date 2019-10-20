@@ -18,8 +18,13 @@ import requests
 def track_google_analytics_event(event_category, event_action, event_label):
     tracking_id = 'UA-145181024-1'
     clientid_str = 'yanito211'
-    tracking_url = 'https://www.google-analytics.com/collect?v=1&t=event&tid='+tracking_id+'&cid='+clientid_str+'&ec='+event_category+'&ea='+event_action+'&el='+event_label+'&aip=1'
-    #  requests.post(tracking_url)
+    tracking_url = 'https://www.google-analytics.com/collect?v=1&t=event' \
+                   '&tid=' + tracking_id + \
+                   '&cid=' + clientid_str + \
+                   '&ec=' + event_category + \
+                   '&ea=' + event_action + \
+                   '&el=' + event_label + \
+                   '&aip=1'
     r = requests.post(tracking_url)
     print(tracking_url)
     print("-"*50)
@@ -31,7 +36,31 @@ def track_google_analytics_event(event_category, event_action, event_label):
 
 track_google_analytics_event('yann category', 'yann action', 'yann label')
 
+
+def track_google_analytics_pageview(host_name, page_name, page_title):
+    tracking_id = 'UA-145181024-1'
+    clientid_str = 'yanito211'
+    tracking_url = 'https://www.google-analytics.com/collect?v=1&t=pageview' \
+                   '&tid=' + tracking_id +\
+                   '&cid=' + clientid_str + \
+                   '&dh=' + host_name + \
+                   '&dp=' + page_name + '&dt=' + page_title + \
+                   '&aip=1'
+    r = requests.post(tracking_url)
+    print(tracking_url)
+    print("-"*50)
+    print(r.status_code)
+    print("-"*50)
+    print(r.headers)
+    print("-"*50)
+
+
+track_google_analytics_pageview('www.mysite.com', '/article1111', 'The great article')
+
+
 """
+=> integration headers
+
 import requests
 
 url = 'SOME URL'
@@ -63,15 +92,18 @@ List of all Browsers
 
 """
 
-
-
 """
-import requests
+SENDING MULTIPLE HITS IN ONE REQUEST / NOT COLLECT BUT BATCH
 
-def track_google_analytics_event(event_category, event_action, event_label):
-    tracking_id = 'UA-XXXXX-X'	
-	clientid_str = str(datetime.now())	
-	tracking_url = 'https://www.google-analytics.com/collect?v=1&t=event&tid='+tracking_id+'&cid='+clientid_str+'&ec='+event_category+'&ea='+event_action+'&el='+event_label+'&aip=1'	
-	requests.post(tracking_url)
+"User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.69 Safari/537.36
+
+POST https://www.google-analytics.com/batch?
+
+v=1&t=event&tid=UA-1500844-18&cid=98880ed4-c224-4b3c-b2e2-35a491373751&ec=videos-1&ea=play&el=spider%2520man1&ev=100
+
+v=1&t=event&tid=UA-1500844-18&cid=98880ed4-c224-4b3c-b2e2-35a491373751&ec=videos-2&ea=play&el=spider%2520man2&ev=100
+
+v=1&t=event&tid=UA-1500844-18&cid=98880ed4-c224-4b3c-b2e2-35a491373751&ec=videos-3&ea=play&el=spider%2520man3&ev=100"
+
 
 """
